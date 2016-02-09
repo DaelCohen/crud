@@ -4,7 +4,7 @@ const http = require('http');
 const staticContent = require('node-static');
 
 const hostname = '127.0.0.1';
-const port = 1337;
+const port = process.env.PORT || 1337;
 
 const file = new staticContent.Server('./public');
 
