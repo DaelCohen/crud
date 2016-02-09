@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de compras</title>
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div ng-controller="ItemController as vm">
+    <form  class="form-horizontal"name="vm.itemForm" ng-submit="vm.itemForm.$valid && vm.addItem(vm.name)" novalidate>
+        <div class="form-group">
+            <label for="name">Item: </label>
+            <input id="name" name="itemName" type="text" ng-model="vm.name" ng-keydown="vm.addItemOnEnter($event)" required>
+            <button type="submit" class="btn btn-primary" ng-show="vm.isItemEditable">Actualizar!</button>
+            <button type="submit" class="btn btn-default" ng-hide="vm.isItemEditable">Agregar!</button>
+        </div>
+        <div ng-if="vm.itemForm.itemName.$error.required && vm.itemForm.$submitted">
+            <p class="text-danger">Este campo es requerido!</p>
+        </div>
+    </form>
+    <p>
+    <ul>
+        <li ng-repeat="item in vm.items track by $index">
+            {{item}}
+            <a ng-click="vm.editItem($index, item)">Editar</a>
+            <a ng-click="vm.removeItem($index)">Eliminar</a>
+        </li>
+    </ul>
+    </p>
+</div>
+<!-- JS -->
+<script src="lib/jquery/dist/jquery.min.js"></script>
+<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="lib/angular/angular.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/itemController.js"></script>
+<script src="js/itemService.js"></script>
+</body>
+</html>
